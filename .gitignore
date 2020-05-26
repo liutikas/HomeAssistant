@@ -9,3 +9,4 @@ secret.yaml
 state.json
 mosquitto.passwd
 log
+tts
