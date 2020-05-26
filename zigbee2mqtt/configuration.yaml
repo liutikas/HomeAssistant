@@ -1,0 +1,43 @@
+homeassistant: true
+permit_join: false
+mqtt:
+  base_topic: zigbee2mqtt
+  server: 'mqtt://localhost'
+  client_id: zigbee2mqtt
+  include_device_information: true
+  user: '!secret mqtt_username'
+  password: '!secret mqtt_password'
+serial:
+  port: /dev/ttyACM0
+  disable_led: true
+devices:
+  '0x00158d00039fe3b5':
+    friendly_name: '0x00158d00039fe3b5'
+  '0x00158d000428be41':
+    friendly_name: '0x00158d000428be41'
+  '0x00158d000428bc20':
+    friendly_name: '0x00158d000428bc20'
+  '0x00158d0003d2c0b1':
+    friendly_name: '0x00158d0003d2c0b1'
+  '0x00158d0004281e90':
+    friendly_name: '0x00158d0004281e90'
+  '0x00158d0003e7a506':
+    friendly_name: '0x00158d0003e7a506'
+  '0x00158d00027baa2c':
+    friendly_name: '0x00158d00027baa2c'
+  '0x00158d000242564a':
+    friendly_name: '0x00158d000242564a'
+  '0x00158d0003a00d7b':
+    friendly_name: '0x00158d0003a00d7b'
+  '0x00158d0003d47e03':
+    friendly_name: '0x00158d0003d47e03'
+  '0x00158d00034d6927':
+    friendly_name: '0x00158d00034d6927'
+  '0x00158d00027baaa1':
+    friendly_name: '0x00158d00027baaa1'
+  '0x00158d00029bd7db':
+    friendly_name: '0x00158d00029bd7db'
+  '0x00158d0003d2c142':
+    friendly_name: '0x00158d0003d2c142'
+  '0x00158d000221bcfe':
+    friendly_name: '0x00158d000221bcfe'

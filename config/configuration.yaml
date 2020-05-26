@@ -1,0 +1,71 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+mqtt:
+  broker: 192.168.86.33
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+  #sensor:
+        #- platform: miflora
+        # mac: 'C4:7C:8D:65:E8:8B'
+        #- platform: miflora
+        #mac: 'C4:7C:8D:65:E8:03'
+
+binary_sensor:
+  - platform: template
+    sensors:
+      presence_aurimas:
+        friendly_name: "Aurimas"
+        value_template: "{{ is_state('input_boolean.is_aurimas_home', 'on') }}"
+        device_class: presence
+        entity_picture_template: >-
+          {% if is_state('input_boolean.is_aurimas_home', 'on') %}
+             /local/aurimas-home.jpg
+          {% else %}
+             /local/aurimas-away.jpg
+          {% endif %}
+      presence_melanie:
+        friendly_name: "Melanie"
+        value_template: "{{ is_state('input_boolean.is_melanie_home', 'on') }}"
+        device_class: presence
+        entity_picture_template: >-
+          {% if is_state('input_boolean.is_melanie_home', 'on') %}
+             /local/melanie-home.jpg
+          {% else %}
+             /local/melanie-away.jpg
+          {% endif %}
+      presence_brendan:
+        friendly_name: "Brendan"
+        value_template: "{{ is_state('input_boolean.is_brendan_home', 'on') }}"
+        device_class: presence
+        entity_picture_template: >-
+          {% if is_state('input_boolean.is_brendan_home', 'on') %}
+             /local/brendan-home.jpg
+          {% else %}
+             /local/brendan-away.jpg
+          {% endif %}
+
+input_boolean:
+  is_aurimas_home:
+    name: "Aurimas’ presence"
+  is_melanie_home:
+    name: "Melanie’s presence"
+  is_brendan_home:
+    name: "Brendan’s presence"
+
+http:
+  server_port: 443
+  base_url: !secret home_assistant_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

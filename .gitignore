@@ -1,0 +1,11 @@
+home-assistant.log
+home-assistant_v2.db
+database.db
+secrets
+.HA_VERSION
+secrets.yaml
+secret.yaml
+.storage
+state.json
+mosquitto.passwd
+log

@@ -1,0 +1,48 @@
+version: "3"
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/raspberrypi4-homeassistant:latest
+    network_mode: "host"
+    ports:
+      - "8123:8123"
+      - "443:443"
+    volumes:
+      - ./config:/config
+      - ./secrets/secrets.yaml:/config/secrets.yaml:ro
+      - /home/pi/dehydrated/certs/aurimas.duckdns.org/:/ssl:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://127.0.0.1:443"]
+      interval: 30s
+      timeout: 10s
+      retries: 6
+    depends_on:
+      - mosquitto
+      - zigbee2mqtt
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./secrets/mosquitto.passwd:/mosquitto/config/mosquitto.passwd
+      - ./mosquitto/log:/mosquitto/log
+  zigbee2mqtt:
+     container_name: zigbee2mqtt
+     image: koenkk/zigbee2mqtt
+     volumes:
+       - ./zigbee2mqtt:/app/data
+       - ./secrets/secrets.yaml:/app/data/secret.yaml:ro
+     devices:
+       - /dev/ttyACM0:/dev/ttyACM0
+     restart: unless-stopped
+     network_mode: host
+     depends_on:
+       - mosquitto 
+

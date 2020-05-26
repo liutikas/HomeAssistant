@@ -1,0 +1,37 @@
+- id: ifttt_webhook
+  alias: IFTTT Webhook
+  trigger:
+    platform: event
+    event_type: ifttt_webhook_received
+    event_data:
+      action: call_service
+  action:
+    service_template: '{{ trigger.event.data.service }}'
+    data_template:
+      entity_id: '{{ trigger.event.data.entity_id }}'
+- id: bedroom_light_toggle
+  alias: Toggle Bedroom lights
+  description: ''
+  trigger:
+  - entity_id: sensor.0x00158d0003d2c0b1_click
+    platform: state
+    to: single
+  condition: []
+  action:
+  - device_id: 866638ed5be9457a98de61dc70384310
+    domain: switch
+    entity_id: switch.bedroom_light
+    type: toggle
+- id: living_room_light_toggle
+  alias: Toggle Livingroom lights
+  description: ''
+  trigger:
+  - entity_id: sensor.0x00158d0003d2c142_click
+    platform: state
+    to: single
+  condition: []
+  action:
+  - device_id: 89acaadf0d904472b4be76bacbb6c519
+    domain: switch
+    entity_id: switch.livingroom_light
+    type: toggle
