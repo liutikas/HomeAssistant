@@ -1,3 +1,12 @@
+homeassistant:
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: !secret elevation
+  unit_system: metric
+  time_zone: America/Los_Angeles
+  external_url: !secret external_url
+  internal_url: !secret internal_url
 
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
@@ -61,7 +70,6 @@ input_boolean:
 
 http:
   server_port: 443
-  base_url: !secret home_assistant_url
   ssl_certificate: /ssl/fullchain.pem
   ssl_key: /ssl/privkey.pem
 
